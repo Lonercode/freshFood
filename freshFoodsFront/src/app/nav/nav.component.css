@@ -1,0 +1,24 @@
+.d-flex{
+    margin-right:8vw;
+}
+
+.navbar-brand{
+    margin-right:4vw;
+    margin-left:3vw;
+}
+
+.form-controlme-2{
+    width:40vw;
+    margin-right:0.6vw;
+    padding-left: 1vw;
+    font-family:FontAwesome;
+}
+
+.container-fluid{
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+}
+
+i{
+    font-family:FontAwesome;
+}

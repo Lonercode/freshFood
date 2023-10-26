@@ -1,0 +1,53 @@
+.side{
+    margin-top: 3vh;
+    margin-left: 3vw;
+    background-color: whitesmoke;
+    width:15vw;
+    border-radius: 1vw;
+    font-size: 1vw;
+    padding-bottom: 1vw;
+    float:left;
+
+}
+
+.side li{
+    list-style-type:none;
+    margin-bottom: 1vw;
+}
+
+i{
+    font-family: FontAwesome;
+}
+
+.side h6{
+    padding-left: 1vw;
+    padding-top:1vw;
+    padding-bottom: 1vw;
+}
+
+#carouselExampleControls{
+    float:right;
+    margin-top: 3vh;
+    margin-right: 1vw;
+    width:80%;
+}
+
+.carousel-item{
+    height:63vh;
+    width:100%;
+    
+}
+
+.d-block{
+    border-radius: 1vw;
+}
+
+.side a{
+    text-decoration: none;
+    color:inherit;
+    
+}
+
+.side li:hover{
+    background-color:lightgrey;
+}
