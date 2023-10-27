@@ -1,12 +1,14 @@
 import { Controller, Get } from '@nestjs/common';
 import { BillingService } from './billing.service';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { createBillDto } from './dto/create-bill.dto';
 
 @Controller()
 export class BillingController {
   constructor(private readonly billingService: BillingService) {}
 
-  @Get()
-  getHello(): string {
-    return this.billingService.getHello();
+  @MessagePattern('create_bill')
+  async  createBill(@Payload() data: createBillDto) { 
+    return this.billingService.startTransaction(data);
   }
 }

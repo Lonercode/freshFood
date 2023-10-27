@@ -7,6 +7,10 @@ import { OrdersRepository } from './orders.repository';
 import { DatabaseModule } from '@app/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Orders, OrdersSchema } from './models/orders.schema';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { BILLING_SERVICE } from '@app/common/constants';
+import { ConfigService } from '@nestjs/config';
+
 
 @Module({
   imports: [
@@ -19,7 +23,19 @@ import { Orders, OrdersSchema } from './models/orders.schema';
       envFilePath: './apps/orders/.env'
     }),
     DatabaseModule,
-    MongooseModule.forFeature([{name: Orders.name, schema: OrdersSchema}])
+    MongooseModule.forFeature([{name: Orders.name, schema: OrdersSchema}]),
+    ClientsModule.registerAsync([
+      {
+        name: BILLING_SERVICE,
+        useFactory: (configService: ConfigService) => ({
+          transport: Transport.TCP,
+          options:{
+            host: configService.get('BILLING_HOST'),
+            port: configService.get('BILLING_TCP_PORT')
+          }
+        })
+    }
+  ])
   ],
   controllers: [OrdersController],
   providers: [OrdersService, OrdersRepository],
