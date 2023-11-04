@@ -11,4 +11,9 @@ export class BillingController {
   async  createBill(@Payload() data: createBillDto) { 
     return this.billingService.startTransaction(data);
   }
+
+  @MessagePattern('verify_bill')
+  async verifyBill(reference: string) {
+    return this.billingService.verifyTransaction(reference);
+  }
 }

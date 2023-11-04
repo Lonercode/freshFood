@@ -10,6 +10,7 @@ import { Orders, OrdersSchema } from './models/orders.schema';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { BILLING_SERVICE } from '@app/common/constants';
 import { ConfigService } from '@nestjs/config';
+import { LoggerModule } from '@app/common/logger';
 
 
 @Module({
@@ -18,10 +19,13 @@ import { ConfigService } from '@nestjs/config';
       isGlobal: true,
       validationSchema: Joi.object({
       MONGODB_URI: Joi.string().required(),
-      PORT: Joi.number().required()
+      PORT: Joi.number().required(),
+      BILLING_HOST: Joi.string().required(),
+      BILLING_TCP_PORT: Joi.number().required()
       }),
       envFilePath: './apps/orders/.env'
     }),
+    LoggerModule,
     DatabaseModule,
     MongooseModule.forFeature([{name: Orders.name, schema: OrdersSchema}]),
     ClientsModule.registerAsync([
@@ -33,7 +37,8 @@ import { ConfigService } from '@nestjs/config';
             host: configService.get('BILLING_HOST'),
             port: configService.get('BILLING_TCP_PORT')
           }
-        })
+        }),
+        inject: [ConfigService]
     }
   ])
   ],

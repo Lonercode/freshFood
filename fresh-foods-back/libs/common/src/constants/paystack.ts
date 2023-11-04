@@ -1,0 +1,1 @@
+export const PAYSTACK_OPTIONS = 'PAYSTACK_OPTIONS';

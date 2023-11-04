@@ -23,6 +23,8 @@ services:
       dockerfile: ./apps/billing/DockerFile
       target: development
     command: npm run start:dev billing
+    env_file: 
+      - ./apps/billing/.env
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules

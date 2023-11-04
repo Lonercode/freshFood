@@ -1,21 +1,35 @@
-import { IsString, IsNumber, IsNotEmpty, IsPhoneNumber } from 'class-validator';
+import { IsString, IsNumber, IsNotEmpty, IsLongitude, IsLatitude, IsObject, ValidateNested, Max, Min } from 'class-validator';
+import { Type } from 'class-transformer';
+class locationDTO{
+    @IsLongitude()
+    @IsNotEmpty()
+    longitude: number
 
-export class createOrdersDto{
+    @IsLatitude()
+    @IsNotEmpty()
+    latitude: number
+
     @IsString()
     @IsNotEmpty()
-    name: string
+    address: string
 
-    @IsNumber()
+}
+
+export class createOrdersDto{
     @IsNotEmpty()
-    price: number
+    @IsObject()
+    @ValidateNested()
+    @Type(() => locationDTO)
+    location: locationDTO
 
+    @Min(6)
+    @Max(30)
     @IsNumber()
     @IsNotEmpty()
     quantity: number
 
-    @IsPhoneNumber()
+    @IsNumber()
     @IsNotEmpty()
-    phoneNumber: string
-
+    price: number
 
 }
