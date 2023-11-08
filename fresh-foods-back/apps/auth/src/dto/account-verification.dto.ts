@@ -2,8 +2,8 @@ import {IsEmail, IsIn, IsNotEmpty, IsString } from 'class-validator';
 
 export enum Entity{
     ADMIN = 'admin',
-    BUYER = 'buyer',
-    SELLER = 'seller'
+    USER = 'buyer',
+    VENDOR = 'seller'
 }
 
 export class VerifyAccountDto{

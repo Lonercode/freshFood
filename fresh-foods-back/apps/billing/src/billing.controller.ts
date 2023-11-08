@@ -8,7 +8,7 @@ export class BillingController {
   constructor(private readonly billingService: BillingService) {}
 
   @MessagePattern('create_bill')
-  async  createBill(@Payload() data: createBillDto) { 
+  async createBill(@Payload() data: createBillDto) { 
     return this.billingService.startTransaction(data);
   }
 
