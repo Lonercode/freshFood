@@ -3,11 +3,12 @@ import { tokenPayload } from "../interfaces/token-payload.interface";
 import { UnauthorizedException, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt} from 'passport-jwt';
+import { UsersService } from "../users/users.service";
 
 @Injectable()
 export class jwtStrategy extends PassportStrategy(Strategy){
     constructor( configService: ConfigService, 
-        usersService: UsersService)
+        private usersService: UsersService)
 
 {
     super({
@@ -20,7 +21,7 @@ export class jwtStrategy extends PassportStrategy(Strategy){
 }
 
 async validate({userId} : tokenPayload){
-    const user = usersService.get(_id: userId);
+    const user = this.usersService.getUser({_id: userId});
 
     if (!(await user).verified){
         throw new UnauthorizedException('Account verification required');

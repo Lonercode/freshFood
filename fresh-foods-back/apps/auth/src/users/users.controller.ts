@@ -4,6 +4,7 @@ import { UsersDocument } from '@app/common/models/users.schema';
 import { UsersService } from './users.service';
 import { UpdateUsersDto } from './dto/update-users.dto';
 import { CurrentUser } from '@app/common/decorators/current-user.decorator';
+import { getUserDto } from './dto/get-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -12,6 +13,11 @@ export class UsersController {
     @Get()
     async getUsers(){
         return this.usersService.getUsers();
+    }
+
+    @Get()
+    async getUser(getUserDto: getUserDto){
+        return this.usersService.getUser(getUserDto);
     }
 
     @Post()

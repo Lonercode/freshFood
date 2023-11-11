@@ -1,22 +1,22 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { Strategy } from 'passport-jwt';
-import { UsersService } from "../users/users.service";
+import { AdminService } from "../admin/admin.service";
 
 @Injectable()
-export class localStrategy extends PassportStrategy(Strategy){
-    constructor( private readonly usersService: UsersService){
+export class AdminLocalStrategy extends PassportStrategy(Strategy){
+    constructor( private readonly adminService: AdminService){
         super({usernameField: 'email'});
     }
 
     async validate(email: string, password: string){
         try{
-            const user = await this.usersService.verifyUser(email, password);
+            const admin = await this.adminService.verifyAdmin(email, password);
 
-            if (!(user).verified){
+            if (!(admin).verified){
                 throw new UnauthorizedException("Account verrification required");
             }
-            return user;
+            return admin;
         } catch(error){
             throw new UnauthorizedException(error, error.message);
         }

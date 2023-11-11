@@ -5,6 +5,7 @@ import { bcrypt } from 'bcryptjs';
 import { UnauthorizedException, UnprocessableEntityException } from '@nestjs/common/exceptions';
 import { UpdateUsersDto } from './dto/update-users.dto';
 import { UsersDocument } from '@app/common/models/users.schema';
+import { getUserDto } from './dto/get-user.dto';
 
 @Injectable()
 export class UsersService{
@@ -49,6 +50,10 @@ export class UsersService{
 
       async getUsers(){
         return this.usersRepository.find({});
+      }
+
+      async getUser(getUserDto: getUserDto){
+        return this.usersRepository.findOne(getUserDto);
       }
 
       async deleteUsers(_user){

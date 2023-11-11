@@ -7,12 +7,13 @@ import { FoodsService } from './foods.service';
   templateUrl: './foods.component.html',
   styleUrls: ['./foods.component.css']
 })
-export class FoodsComponent implements OnInit {
-  foods$: Observable<any> | undefined;
-  constructor(private foodsService: FoodsService) {};
+export class FoodsComponent implements OnInit{
+  data: any = [];
+  constructor(private foodsService: FoodsService){}
 
   ngOnInit(): void {
-    this.foods$ = this.foodsService.getFoods();
-  }; 
-
+      this.foodsService.getFoods().subscribe((result) => {
+        this.data = result;
+      })
+  }
 }
